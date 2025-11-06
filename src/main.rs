@@ -17,6 +17,8 @@ enum Commands {
     Decode { text: String },
 }
 
+const BASE64_CHARS: &[u8] = b"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+
 fn main() {
     let cli = Cli::parse();
 
@@ -30,10 +32,21 @@ fn main() {
     }
 }
 
-fn encode() {
-    //
+// -> {type} indicates we return as that
+fn encode(input: &str) -> String {
+    let bytes = input.as_bytes();
+    let mut result = String::new();
+
+    for chunk in bytes.chunks(3) {
+        // chunk is &[u8], could be 1, 2, or 3 bytes
+
+        if chunk.len() == 3 {
+            // extract 4 indices, push 4 chars to result
+            // result.push(some_char);
+        }
+    }
 }
 
-fn decode() {
-    //
+fn decode(input: &str) -> String {
+    // TODO: implement
 }
