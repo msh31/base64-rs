@@ -1,23 +1,39 @@
-use clap::Parser;
+use clap::{Parser, Subcommand};
 
-// compilers writes this code
-// the derive for debubg, auto gens fmt::debug implementation for this struct
-// parser, same thing for passing in the arguments we want, defined in a struct
-#[derive(Parser, Debug)]
-#[command(version, about, long_about = None)]
-struct Args {
-    #[arg(short, long)] //short = n, long = name, uses the variable name
-    name: String,
+// compiler writes this code
+// tells the compiler to automatically implement the pparser trait* for this struct
+// *a trait defines behavior that types can implement, like interfaces or virtual base classes
+#[derive(Parser)]
+#[command(name = "base64-rs")]
+#[command(about = "Encode and decode base64")]
+struct Cli {
+    #[command(subcommand)]
+    command: Commands,
+}
 
-    /// Number of times to greet
-    #[arg(short, long, default_value_t = 1)]
-    count: u8,
+#[derive(Subcommand)]
+enum Commands {
+    Encode { text: String },
+    Decode { text: String },
 }
 
 fn main() {
-    let args = Args::parse();
+    let cli = Cli::parse();
 
-    for _ in 0..args.count {
-        println!("Hello {}!", args.name);
+    match cli.command {
+        Commands::Encode { text } => {
+            println!("TODO: encode '{}'", text);
+        }
+        Commands::Decode { text } => {
+            println!("TODO: decode '{}'", text);
+        }
     }
+}
+
+fn encode() {
+    //
+}
+
+fn decode() {
+    //
 }
